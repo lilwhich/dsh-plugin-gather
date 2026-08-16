@@ -27,29 +27,15 @@
 
 > 一句话：**装上 my_better-dsh = 原生 DSH + 14 项增强（8 大本包独有功能 + 6 项精选插件）**，一条命令装齐、自动挂载。
 
-## 📸 截图预览
-
-本包内置 8 大功能，一张图一段话看完：
-
-<table>
-  <tr>
-    <td align="center" width="33%"><img src="docs/screenshots/02-status-bar.png" alt="账户状态栏" /><br/><b>📊 账户状态栏</b><br/>余额 · 消耗 · 峰谷 · 上下文</td>
-    <td align="center" width="33%"><img src="docs/screenshots/07-bottom-buttons.png" alt="底部三按钮" /><br/><b>下方三按钮</b><br/>删除确认 / 迁徙 / 全局</td>
-    <td align="center" width="33%"><img src="docs/screenshots/05-sidebar-layout.png" alt="VSCode 左侧栏" /><br/><b>📁 左侧栏</b><br/>文件 · 会话 · 大纲</td>
-  </tr>
-  <tr>
-    <td align="center" width="33%"><img src="docs/screenshots/09-outline.png" alt="对话大纲" /><br/><b>🗂 对话大纲</b><br/>用户消息导航 + 搜索</td>
-    <td align="center" width="33%"><img src="docs/screenshots/04-diff-review.png" alt="Diff Review" /><br/><b>👁️ Diff Review</b><br/>实时行级 diff</td>
-    <td align="center" width="33%"><img src="docs/screenshots/06-global-settings.png" alt="全局设定" /><br/><b>⚙️ 全局设定</b><br/>编辑 ~/.dsh/AGENTS.md</td>
-  </tr>
-  <tr>
-    <td align="center" width="33%"><img src="docs/screenshots/03-delete-confirm.png" alt="删除确认弹框" /><br/><b>🛡️ 删除确认</b><br/>拦截 rm/del 弹框</td>
-    <td align="center" width="33%"><img src="docs/screenshots/01-handoff-confirm.png" alt="对话迁徙确认" /><br/><b>🚚 对话迁徙</b><br/>本地预处理省 99% token</td>
-    <td align="center" width="33%"><img src="docs/screenshots/08-session-menu.png" alt="会话 ⋯ 菜单" /><br/><b>💬 会话 ⋯ 菜单</b><br/>置顶 / 复制路径 / 删除</td>
-  </tr>
-</table>
-
 ## 自带功能总览（本包内置）
+
+- **输入框下方状态栏（两行式）**（composer dock）：**第一行**为官方运行统计——轮数/步数、LLM 时间、工具调用时间、首 token 平均、TPS、缓存命中、输入/输出 token（完整显示不截断）；**第二行**为本包账户状态——**API 余额**（¥，来自 DeepSeek 真实余额接口 `api.deepseek.com/user/balance`）、**本次已消耗**（余额差值，真实花费）、**当前时段**（高峰/空闲）与**距下次时段切换的倒计时**（官方峰谷定价：高峰=北京时间 9:00-12:00、14:00-18:00，空闲=其余时间，空闲半价；2026-08-17 起生效）、**当前对话剩余上下文窗口**（如 `剩 384K/1M`，绿/黄/红随剩余比例变色）
+
+  ![输入框下方状态栏：运行统计 + 余额 + 峰谷 + 上下文 + 删除时确认](docs/screenshots/02-status-bar.png)
+- **输入框内当前对话剩余上下文窗口指示**：输入框**未输入文字且光标聚焦**时，以及**智能体发送消息（回复中）**时，在输入框内浮动显示**当前对话剩余上下文窗口**（如 `剩 384K/1M`，绿/黄/红随剩余比例变色；来源为 DSH token-meter 的真实上下文投影）
+- 余额/花费**每 60 秒**通过真实 API 刷新一次（host 侧用 `DEEPSEEK_API_KEY` 凭据调用，密钥不出主机）
+
+  ![左侧栏底部三按钮：删除时确认 / 对话迁徙 / 全局](docs/screenshots/07-bottom-buttons.png)
 
 - **VSCode 风格左侧栏**：左侧边栏分为「📁 文件 / 💬 会话 / 🗂 大纲」三栏（VSCode 活动栏风格）——文件栏点开显示**当前工作区文件树**（懒加载目录，点击文件在右侧边栏打开），会话栏保持原样（会话列表 + 运行/完成状态点，点击切换），大纲栏见下方「对话大纲」
 
@@ -77,16 +63,6 @@
 - **对话迁徙（Conversation Handoff）**：左侧栏底部「**🚚 对话迁徙**」按钮（与「删除时确认」开关、「⚙️ 全局」按钮并列均分等大）——点击后先弹**二级确认框**（说明：分析当前对话生成 Context Handoff、创建新对话、原对话保持不变），确认后才开始；**复用 DSH 自身 Agent/LLM Runtime**（零新增外部 API / Provider / 模型 / Key）在后台创建一个**内部临时分析会话**（`handoff-<uuid>`，禁止一切工具调用）分析当前 Conversation，生成 **Context Handoff**（当前目标 / 已完成 / 当前进度 / 用户要求 / 用户限制 / 重要决定 / 已修改文件 / 当前问题 / 已失败方案 / Task Board / 下一步 / 最近重要上下文），然后**创建全新的 Conversation**，把 Handoff 作为初始上下文注入（不携带原完整历史，压缩上下文继续工作）。**迁徙上下文预处理**：先把完整对话交给 **host 本地轻量过滤**（不把 800K 原样喂给分析 agent）——保留用户消息/要求/限制、Agent 最终结论、重要 Tool Call/Result、文件路径、错误信息、技术决策、最近若干轮完整；过滤重复工具输出、npm/pip 安装日志、编译日志、被后续消息覆盖的中间信息（错误信息与用户限制**绝不**误删）；已有 DSH compaction 生成的摘要节点直接复用，不重复分析。UI 显示预处理后的**实际分析量估算**（「迁徙完成 · 约 XX tokens」）。过程提示：正在预处理当前对话…… → 正在分析当前对话…… → 正在提取任务状态…… → 正在生成迁徙上下文…… → 迁徙完成；完成后自动打开新对话并在状态栏显示「🚚 已从上一对话迁徙」标记（hover 提示「此对话由 Context Handoff 创建」）。**原 Conversation / Session 完全不变**；临时分析会话结束后自动清理，不显示在会话列表；失败时原对话不受影响，可重试。
 
   ![对话迁徙二级确认框](docs/screenshots/01-handoff-confirm.png)
-
-## 自带的账户状态功能（本包内置）
-
-- **输入框下方状态栏（两行式）**（composer dock）：**第一行**为官方运行统计——轮数/步数、LLM 时间、工具调用时间、首 token 平均、TPS、缓存命中、输入/输出 token（完整显示不截断）；**第二行**为本包账户状态——**API 余额**（¥，来自 DeepSeek 真实余额接口 `api.deepseek.com/user/balance`）、**本次已消耗**（余额差值，真实花费）、**当前时段**（高峰/空闲）与**距下次时段切换的倒计时**（官方峰谷定价：高峰=北京时间 9:00-12:00、14:00-18:00，空闲=其余时间，空闲半价；2026-08-17 起生效）、**当前对话剩余上下文窗口**（如 `剩 384K/1M`，绿/黄/红随剩余比例变色）
-
-  ![输入框下方状态栏：运行统计 + 余额 + 峰谷 + 上下文 + 删除时确认](docs/screenshots/02-status-bar.png)
-- **输入框内当前对话剩余上下文窗口指示**：输入框**未输入文字且光标聚焦**时，以及**智能体发送消息（回复中）**时，在输入框内浮动显示**当前对话剩余上下文窗口**（如 `剩 384K/1M`，绿/黄/红随剩余比例变色；来源为 DSH token-meter 的真实上下文投影）
-- 余额/花费**每 60 秒**通过真实 API 刷新一次（host 侧用 `DEEPSEEK_API_KEY` 凭据调用，密钥不出主机）
-
-  ![左侧栏底部三按钮：删除时确认 / 对话迁徙 / 全局](docs/screenshots/07-bottom-buttons.png)
 
 ## 包含的插件
 
