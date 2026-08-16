@@ -12,6 +12,7 @@
 - **Git 项目**：直接复用 Git（`git add -A` + `commit` 作为快照；diff 用 `git show`；恢复用 `git reset --hard <commit>`）——不自研、不重复实现。工作区无变化时自动跳过（不产生空快照）
 - **非 Git 项目**：**不初始化 Git**，采用兼容方案——把项目文件复制快照到 `~/.dsh/checkpoints/`（自动排除 node_modules/.git/dist/build 等目录），快照间 diff 复用 `git diff --no-index`，恢复会覆盖快照中的文件（不删除快照后新增的文件，属已知限制）
 - 快照数据存于 `~/.dsh/checkpoints/<工作区哈希>/index.json`，恢复操作在 UI 中必须经过**二次确认**
+- **全局设定（Global Settings）**：编辑 DSH 的**用户级指令文件 `~/.dsh/AGENTS.md`**（模仿 Claude Code 的 CLAUDE.md）——写在这里的规则**对所有会话生效**（DSH 每次会话启动时把该文件作为工作区指令基线载入；项目目录下的 `AGENTS.md` / `CLAUDE.md` 优先级更高）。右侧边栏新增「**全局设定**」标签页：Markdown 编辑器 + 保存（原子写入）/ 恢复模板 / 复制路径，未保存内容自动暂存本地，切换标签不丢失；保存后新会话立即生效、当前会话下一轮自动刷新。
 
 ## 自带的账户状态功能（本包内置）
 
