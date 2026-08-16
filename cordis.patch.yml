@@ -28,6 +28,11 @@
     - id: better-sidebar
       name: 'dsh-better-sidebar'
 
+# my_better-dsh 自身的行（host 状态代理 + client 状态栏/上下文剩余指示）
+- insert:
+    - id: my-better-dsh
+      name: my_better-dsh
+
 # ── dsh-web-ui 精选（右侧面板 / 任务看板 / 实时吞吐 / 设置页 / 皮肤中心）──
 - insert:
     - id: ui-dsh-aionui-panel

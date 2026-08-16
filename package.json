@@ -1,9 +1,15 @@
 {
   "name": "my_better-dsh",
-  "version": "0.3.0",
-  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选（右侧面板/任务看板/实时吞吐/设置页/皮肤中心）。",
+  "version": "0.4.0",
+  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏（余额/花费/峰谷倒计时）与上下文剩余百分比。",
   "license": "MIT",
   "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
   "dependencies": {
     "@linxin666/dsh-client-ui-aionui-panel": "^0.1.16",
     "@linxin666/dsh-client-ui-task-board": "^0.1.16",
@@ -17,6 +23,21 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
     }
-  }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ]
 }
