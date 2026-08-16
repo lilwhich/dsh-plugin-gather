@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "dsh-at-file": "file:vendor/dsh-at-file",
+    "dsh-at-file": "https://codeload.github.com/omdsh-dev/dsh-at-file/tar.gz/refs/tags/v0.6.0",
     "dsh-better-sidebar": "^0.12.2"
   },
   "dsh": {

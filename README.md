@@ -11,6 +11,14 @@
 
 ## 安装
 
+**第 0 步（仅手动安装需要）**：在 profile 的 `pnpm-workspace.yaml` 里加一行（一键脚本会自动处理）：
+
+```yaml
+blockExoticSubdeps: false
+```
+
+然后：
+
 ```sh
 # 从本仓库安装（GitHub tarball）
 dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/heads/main
@@ -18,7 +26,9 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 
 装完后**重启 `dsh web`**（或按各插件要求硬刷新浏览器），在「新建会话」或设置页确认插件生效。
 
-> 说明：`dsh-at-file` 未发布到 npm，且 pnpm 11 默认禁止「URL 规格的传递依赖」，因此本仓库将其源码内嵌在 `vendor/dsh-at-file/`（v0.6.0 快照，MIT 许可，随包保留 LICENSE），以 `file:` 本地依赖引入——仓库自包含，任何网络环境下都能安装。
+> 说明：`dsh-at-file` 未发布到 npm，依赖以 codeload GitHub tarball 形式声明（等效于官方 README 的 archive URL）。
+> pnpm 11 默认禁止「URL 规格的传递依赖」（`blockExoticSubdeps`），安装前需在 profile 的 `pnpm-workspace.yaml`
+> 写入 `blockExoticSubdeps: false`——`scripts/install.ps1` 会自动处理；手动安装请按「安装」节第 0 步先执行。
 
 ## 原理
 

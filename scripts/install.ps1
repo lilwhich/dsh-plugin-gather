@@ -25,6 +25,10 @@ $t = Get-Content $ws -Raw
 if ($t -notmatch '(?m)^\s*allowBuilds:\s*$') {
   $t += "`nallowBuilds:`n  node-pty: true`n  protobufjs: true`n"
 }
+# 允许 URL 规格的传递依赖（dsh-at-file 未发布 npm，经 codeload tarball 引入）
+if ($t -notmatch '(?m)^\s*blockExoticSubdeps:\s*') {
+  $t += "`nblockExoticSubdeps: false`n"
+}
 if ($t -notmatch '(?m)^\s*-\s+my_better-dsh\s*$') {
   $t += "`nminimumReleaseAgeExclude:`n  - my_better-dsh`n"
 }
