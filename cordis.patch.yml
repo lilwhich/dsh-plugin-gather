@@ -10,8 +10,10 @@
 # profile boot then merges THIS patch, which mounts every bundled plugin by
 # inserting its row — exactly the rows each plugin's own patch would insert:
 #
-#   - dsh-at-file      (id: dsh-at-file,      name: dsh-at-file)
-#   - dsh-better-sidebar (id: better-sidebar, name: 'dsh-better-sidebar')
+#   - dsh-at-file           (id: dsh-at-file,      name: dsh-at-file)
+#   - dsh-better-sidebar    (id: better-sidebar,   name: 'dsh-better-sidebar')
+#   - dsh-web-ui family     (rows mirrored verbatim from the aggregate
+#                            @linxin666/dsh-web-ui-all's own cordis.patch.yml)
 #
 # The dependencies in package.json are pulled in automatically, so one command
 # installs and mounts everything. No profile file edits are needed.
@@ -20,3 +22,41 @@
       name: dsh-at-file
     - id: better-sidebar
       name: 'dsh-better-sidebar'
+
+# ── dsh-web-ui family (mirrored from @linxin666/dsh-web-ui-all cordis.patch.yml) ──
+- insert:
+    - id: ui-web-ui-compat
+      name: '@linxin666/dsh-web-ui-all'
+- insert:
+    - id: ui-web-ui-settings
+      name: '@linxin666/dsh-client-ui-web-ui-settings'
+- insert:
+    - id: ui-dsh-aionui-panel
+      name: '@linxin666/dsh-client-ui-aionui-panel'
+- insert:
+    - id: ui-task-board
+      name: '@linxin666/dsh-client-ui-task-board'
+- insert:
+    - id: ui-git-graph
+      name: '@linxin666/dsh-client-ui-git-graph'
+- insert:
+    - id: pet
+      name: '@linxin666/dsh-pet'
+- insert:
+    - id: remote-web-ui
+      name: '@linxin666/dsh-remote-web-ui'
+- insert:
+    - id: live-stats
+      name: '@linxin666/dsh-live-stats'
+- insert:
+    - id: ssh
+      name: '@linxin666/dsh-ssh'
+- insert:
+    - id: describe-image
+      name: '@linxin666/dsh-tool-describe-image'
+- insert:
+    - id: liangshen
+      name: '@linxin666/dsh-liangshen'
+- insert:
+    - id: ui-skin-center
+      name: '@linxin666/dsh-client-ui-skin-center'
