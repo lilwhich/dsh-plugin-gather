@@ -35,6 +35,15 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 **不包含**（保持小白友好，避免花哨/偏门）：`dsh-pet`（宠物）、`dsh-remote-web-ui`（移动端远程）、`dsh-git-graph`（Git 图谱）、
 `dsh-liangshen`（梁神模式预设）、`dsh-tool-describe-image`（图像理解）、`dsh-ssh`（SSH 运维）——需要的可自行 `dsh plugin --profile web add <包名>`。
 
+## 插件来源（作者仓库）
+
+| 插件 | 作者仓库 |
+|---|---|
+| dsh-at-file（@ 路径引用） | https://github.com/omdsh-dev/dsh-at-file |
+| dsh-better-sidebar（右侧边栏） | https://github.com/omdsh-dev/DSH-better-sidebar |
+| dsh-web-ui 全家桶精选（右侧面板/看板/皮肤等） | https://github.com/zhu1090093659/dsh-web-ui |
+| dsh-genui（UI 生成，npm: `@omdsh-dev/dsh-genui`，未收录，可选自行安装） | https://github.com/omdsh-dev/dsh-genui |
+
 ## 安装
 
 **第 0 步（仅手动安装需要）**：在 profile 的 `pnpm-workspace.yaml` 里加一行（一键脚本会自动处理）：
@@ -51,6 +60,12 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 ```
 
 装完后**重启 `dsh web`**（或按各插件要求硬刷新浏览器），在「新建会话」或设置页确认插件生效。
+
+**更新**：用**带版本号的 tag URL**（避免 pnpm 对同一 URL 的 tarball 校验和冲突）：
+
+```sh
+dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.5.3
+```
 
 > 说明：`dsh-at-file` 未发布到 npm，依赖以 codeload GitHub tarball 形式声明（等效于官方 README 的 archive URL）。
 > pnpm 11 默认禁止「URL 规格的传递依赖」（`blockExoticSubdeps`），安装前需在 profile 的 `pnpm-workspace.yaml`
