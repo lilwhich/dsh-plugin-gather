@@ -49,35 +49,63 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 | dsh-web-ui 全家桶精选（右侧面板/看板/皮肤等） | https://github.com/zhu1090093659/dsh-web-ui |
 | dsh-genui（UI 生成，npm: `@omdsh-dev/dsh-genui`，未收录，可选自行安装） | https://github.com/omdsh-dev/dsh-genui |
 
-## 安装（零配置，一个链接）
+# my_better-dsh
 
-**方式一（推荐 · 一条命令，无需任何配置）** —— Windows PowerShell：
+给你的 DeepSeek Harness（DSH）一键装好一整套好用插件：**VSCode 式左侧栏（文件树/会话）· 右侧边栏 · @ 引用文件 · 任务看板 · 皮肤中心 · API 余额/花费/峰谷倒计时 · Checkpoint 快照回滚 · 全局设定 · Diff Review**。
+
+拿到这个仓库，你只需要**复制一行命令 → 粘贴 → 重启**，剩下全部自动完成。
+
+## 安装（拿到链接后，跟着做就行）
+
+> 你只做两件事：**① 粘贴一行命令 ② 重启 dsh web**。下载、依赖、挂载全部自动，不用装任何东西、不用改任何配置。
+
+### 🟢 第 1 步：粘贴这一行
+
+在 **Windows PowerShell** 里粘贴并回车：
 
 ```powershell
 irm https://tinyurl.com/2927jusc | iex
 ```
 
-（等价完整地址：`irm https://raw.githubusercontent.com/lilwhich/my_better-dsh/main/scripts/install.ps1 | iex`）
+> 这条命令会自动完成：下载安装脚本 → 从我的仓库拉取整套插件 → 自动处理 pnpm 依赖/原生模块构建/发布校验 → 写进你的 `web` profile 并挂载。全程无需干预。
 
-**方式二（DSH 原生 · 一个链接）** —— 直接给别人的 DSH 执行：
+**没有 PowerShell？或者更习惯直接在 DSH 里装？** —— 把下面这一整行**发给你的 DSH（在对话里粘贴即可，agent 会帮你执行）**：
 
 ```sh
 dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.6 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
 ```
 
-> 三种 pnpm 11 开关（exotic 依赖 / 构建脚本 / 发布年龄）全部走命令行 `--config.*` 参数，**不修改任何 profile 配置文件**，任何人复制即装。
+### 🟡 第 2 步：重启 `dsh web`
 
-装完后**重启 `dsh web`**（或硬刷新浏览器）生效。
+装完后**重启一次**（在运行 dsh web 的终端按 `Ctrl+C`，再运行 `dsh web`），然后浏览器**硬刷新**（`Ctrl+Shift+R`）。
 
-**更新**：用**带版本号的 tag URL**（避免 pnpm 对同一 URL 的 tarball 校验和冲突）：
+### 🔵 第 3 步：确认装好了
+
+重启后你应该能看到：
+
+- 左侧边栏出现 **「📁 文件 | 💬 会话」** 切换（文件栏是工作区文件树，会话栏是会话列表）
+- 右侧边栏出现 **CHECKPOINTS / Diff Review** 等标签
+- 输入框下方出现 **「余额 ¥… · 高峰/空闲 · 距切换 …」** 状态栏
+- 输入框输入 `@` 可引用工作区文件
+
+### ❓ 常见问题
+
+| 现象 | 解决 |
+|---|---|
+| 提示 `dsh` 不是命令 | 先安装 DSH（`npm i -g @deepseek-ai/dsh` 或官方方式），再重跑第 1 步 |
+| 提示找不到 profile | 先运行过一次 `dsh web` 再装 |
+| 装完没看到新功能 | 确认第 2 步的**重启 + 硬刷新**都做了；还没好就在浏览器 Console 看报错 |
+| 想更新 | 见下方「更新」 |
+
+## 更新
+
+用**带版本号的 tag URL**（避免 pnpm 对同一 URL 的 tarball 校验和冲突）：
 
 ```sh
 dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/<新版本号> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
 ```
 
-> 说明：`dsh-at-file` 未发布到 npm，依赖以 codeload GitHub tarball 形式声明（等效于官方 README 的 archive URL）。
-> pnpm 11 默认禁止「URL 规格的传递依赖」（`blockExoticSubdeps`），安装前需在 profile 的 `pnpm-workspace.yaml`
-> 写入 `blockExoticSubdeps: false`——`scripts/install.ps1` 会自动处理；手动安装请按「安装」节第 0 步先执行。
+> 安装原理：三个 pnpm 11 开关（exotic 依赖 / 构建脚本 / 发布年龄）全部通过命令行 `--config.*` 参数传递，**不修改任何 profile 配置文件**；`dsh-at-file` 未发布 npm，以 codeload tarball 声明（等效官方 archive URL）。
 
 ## 原理
 
