@@ -1,15 +1,19 @@
-﻿# my_better-dsh 一键安装脚本（Windows PowerShell）
+# my_better-dsh 一键安装脚本（Windows PowerShell / PowerShell 7）
 #
 # 零配置安装：不修改任何 profile 配置文件——所有 pnpm 开关都通过命令行
 # --config.* 参数传递，任何人复制一行即可完成安装。
 #
-# 用法：
-#   # 一条命令（推荐，无需任何前置配置）
-#   irm https://raw.githubusercontent.com/lilwhich/my_better-dsh/main/scripts/install.ps1 | iex
-#   # 或直接用下面的 dsh 命令（等价的"一个链接"方式）
+# 用法（推荐，无需任何前置配置）：
+#   irm https://tinyurl.com/2927jusc | iex
+# 或直接用等价的 dsh 命令（"一个链接"方式）：
 #   dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
-#   # 从本地目录安装
-#   powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Source file:C:\path\to\my_better-dsh
+# 从本地目录安装（注意：-File 直读请用 PowerShell 7；Windows PowerShell 5.1 会把无 BOM 的 UTF-8 中文当 GBK 解析）：
+#   pwsh -ExecutionPolicy Bypass -File scripts/install.ps1 -Source file:C:\path\to\my_better-dsh
+#
+# 重要：本文件必须保持 UTF-8 无 BOM。
+#   - 有 BOM 时（EF BB BF），irm | iex 得到的字符串以 U+FEFF 开头，PowerShell
+#     无法识别脚本开头的 param()/注释/赋值，整段脚本解析失败；
+#   - 无 BOM 时 iex 一切正常，因为 Invoke-WebRequest 已按 UTF-8 解码正文。
 param(
   [string]$Source = 'https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9',
   [string]$Profile = 'web',
