@@ -1,5 +1,7 @@
 # my_better-dsh
 
+> **中文 · [English](./README.en.md)**
+
 我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
 
 ## 自带功能总览（本包内置）

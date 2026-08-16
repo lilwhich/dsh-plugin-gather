@@ -1,7 +1,7 @@
 {
   "name": "my_better-dsh",
   "version": "0.9.6",
-  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏 + Checkpoint + VSCode 式左侧栏（文件树/会话/对话大纲，含 ⋯ 菜单：置顶/删除/复制路径）+ 全局设定（~/.dsh/AGENTS.md 编辑器，CLAUDE.md 风格）。",
+  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏 + Checkpoint + VSCode 式左侧栏（文件树/会话/对话大纲，含 ⋯ 菜单：置顶/删除/复制路径）+ 全局设定（~/.dsh/AGENTS.md 编辑器，CLAUDE.md 风格）。 English: Beginner-friendly one-command DSH Web plugin bundle — dsh-at-file + dsh-better-sidebar + curated dsh-web-ui + account status bar + Checkpoint snapshots + VSCode-style left sidebar (files/sessions/outline) + Global Settings editor.",
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
@@ -41,6 +41,7 @@
     "scripts",
     "AGENTS.md",
     "README.md",
+    "README.en.md",
     "LICENSE"
   ]
 }
