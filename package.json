@@ -1,0 +1,16 @@
+{
+  "name": "my_better-dsh",
+  "version": "0.1.0",
+  "description": "我的 DSH Web 插件集合包：dsh-at-file（@ 路径引用）+ dsh-better-sidebar（右侧边栏）一键安装。",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "dsh-at-file": "https://codeload.github.com/omdsh-dev/dsh-at-file/tar.gz/refs/tags/v0.6.0",
+    "dsh-better-sidebar": "^0.12.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

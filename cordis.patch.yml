@@ -1,0 +1,22 @@
+# my_better-dsh bundle patch
+#
+# This file is the `dsh.bundle.patch` layer of the aggregation package. When
+# installed through the official CLI:
+#
+#   dsh plugin --profile web add <my_better-dsh-spec>
+#
+# the command reconciles `dsh.profile.bundles` against installed packages and,
+# seeing this declaration, appends `my_better-dsh` to the bundle stack. The
+# profile boot then merges THIS patch, which mounts every bundled plugin by
+# inserting its row — exactly the rows each plugin's own patch would insert:
+#
+#   - dsh-at-file      (id: dsh-at-file,      name: dsh-at-file)
+#   - dsh-better-sidebar (id: better-sidebar, name: 'dsh-better-sidebar')
+#
+# The dependencies in package.json are pulled in automatically, so one command
+# installs and mounts everything. No profile file edits are needed.
+- insert:
+    - id: dsh-at-file
+      name: dsh-at-file
+    - id: better-sidebar
+      name: 'dsh-better-sidebar'
