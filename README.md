@@ -1,12 +1,12 @@
 # my_better-dsh
 
-我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint/Rollback 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
+我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
 
 ## 自带功能总览（本包内置）
 
 - **VSCode 风格左侧栏**：左侧边栏分为「📁 文件 / 💬 会话 / 🗂 大纲」三栏（VSCode 活动栏风格）——文件栏点开显示**当前工作区文件树**（懒加载目录，点击文件在右侧边栏打开），会话栏保持原样（会话列表 + 运行/完成状态点，点击切换），大纲栏见下方「对话大纲」
 - **对话大纲（Conversation Outline）**：左侧边栏「🗂 大纲」tab——自动扫描当前会话聊天的**用户消息**生成导航目录（每条用户消息 = 一个节点，标题取消息首句并截断）：**点击节点立即滚动定位**到对应消息并临时高亮（只定位、不改变聊天状态）；**滚动聊天时自动高亮当前阅读段**（绿色圆点 + 背景）；顶部 **🔍 搜索** 可实时过滤节点；长对话列表可滚动，带**始终可见的自定义滚动条**（DSH 默认隐藏原生滚动条）
-- **Checkpoint / Rollback 快照系统（Phase 1）**：
+- **Checkpoint 快照系统**：
 
 **Agent 每次开始运行（准备修改项目文件前）自动创建 Checkpoint**。右侧边栏新增 **CHECKPOINTS** 标签页，可查看快照列表、Files Changed、Diff，并支持**两次确认后恢复**。
 
@@ -15,6 +15,7 @@
 - 快照数据存于 `~/.dsh/checkpoints/<工作区哈希>/index.json`，恢复操作在 UI 中必须经过**二次确认**
 - **全局设定（Global Settings）**：编辑 DSH 的**用户级指令文件 `~/.dsh/AGENTS.md`**（模仿 Claude Code 的 CLAUDE.md）——写在这里的规则**对所有会话生效**（DSH 每次会话启动时把该文件作为工作区指令基线载入；项目目录下的 `AGENTS.md` / `CLAUDE.md` 优先级更高）。**左侧边栏右下角「⚙️ 全局设定」文字按钮**（悬停提示「全局设定（对所有会话生效）」，首次使用显示引导气泡并带提示圆点）展开二级菜单（含「全局设定」入口）与右侧边栏「全局设定」标签页均可编辑：Markdown 编辑器 + 保存（原子写入）/ 恢复模板 / 复制路径，未保存内容自动暂存本地，切换标签不丢失；**保存后自动返回上一页**，新会话立即生效、当前会话下一轮自动刷新。
 - **Diff Review（实时改动审查）**：右侧边栏新增「**Diff Review**」标签页——Agent 每次 `read`/`write`/`edit`/`str_replace_editor` 修改文件时，宿主在**工具执行前捕获文件原状态**（`tools/pre-execute`）、执行成功后计算**行级 diff**（LCS 算法，绿=新增 / 红=删除 / 蓝=hunk 头），**实时**显示到面板：**保留最新 6 条，前 2 条展开、更早的自动折叠为摘要行**（点击标题可展开/收起，不堆叠影响查看），最新改动**黄色高亮闪烁**；**客户端常驻轮询**（不依赖标签页是否打开），**每个工作区第一次出现改动时自动打开面板**，标签栏带实时 **+N 未读徽标**；顶部「实时跟随」开关可关；按会话工作区隔离，每 1.5s 轮询 `/my-better-dsh/api/diff-review`。
+- **Security Mode（安全模式，默认 Full Access Except Delete）**：默认保持**完全访问**——所有读取/创建/修改/重命名/移动文件、终端命令、npm/pip 安装卸载、Git、网络请求、Tool 调用、Checkpoint、配置修改、安装插件、运行脚本**全部自动放行，不弹确认**（与 DSH 原生 danger-full-access 行为一致）；仅在 Agent 执行**删除操作**（删除文件 / 批量删除 / 删除目录）时，在 DSH 官方统一工具入口 `tools/pre-execute` **挂起该工具**并弹出确认框（显示路径列表、批量数量、目录内容统计、删除前已有 Checkpoint 提示），用户点「允许删除 / 取消」后放行或拒绝（拒绝时工具以 `用户拒绝了该删除操作。` 返回给 Agent，任务不中断）。删除识别基于**工具名 + 参数**与 **shell 删除命令解析**（`rm`/`rmdir`/`unlink`、`del`/`erase`/`rd`、`Remove-Item` 及其别名、`.NET [IO.File]::Delete` 等，区分 bash / PowerShell / CMD），**不会**因命令中仅出现 rm/delete/remove 字样就误判（echo、注释、grep、git rm、npm rm 等均不受影响）。模式可经 `GET/POST /my-better-dsh/api/security/mode` 查看/切换（`full-access-except-delete` / `full-access`），输入框下方状态栏实时显示「🟢 删除时确认」标签。
 
 ## 自带的账户状态功能（本包内置）
 
@@ -52,7 +53,7 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 
 # my_better-dsh
 
-给你的 DeepSeek Harness（DSH）一键装好一整套好用插件：**VSCode 式左侧栏（文件树/会话/对话大纲）· 右侧边栏 · @ 引用文件 · 任务看板 · 皮肤中心 · API 余额/花费/峰谷倒计时 · Checkpoint 快照回滚 · 全局设定 · Diff Review**。
+给你的 DeepSeek Harness（DSH）一键装好一整套好用插件：**VSCode 式左侧栏（文件树/会话/对话大纲）· 右侧边栏 · @ 引用文件 · 任务看板 · 皮肤中心 · API 余额/花费/峰谷倒计时 · Checkpoint 快照 · 全局设定 · Diff Review**。
 
 拿到这个仓库，你只需要**复制一行命令 → 粘贴 → 重启**，剩下全部自动完成。
 
@@ -66,7 +67,7 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
   dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
   ```
 
-- **选择部分插件**：展示下方「可选插件清单」，按用户挑选的插件**逐个执行**对应的单独安装命令（每条命令都会自动挂载该插件）。注意：**本包内置功能**（账户状态栏、Checkpoint/Rollback、全局设定、Diff Review、对话大纲、左侧栏文件/会话）只随完整安装提供，单独装插件不会包含它们。
+- **选择部分插件**：展示下方「可选插件清单」，按用户挑选的插件**逐个执行**对应的单独安装命令（每条命令都会自动挂载该插件）。注意：**本包内置功能**（账户状态栏、Checkpoint、全局设定、Diff Review、对话大纲、左侧栏文件/会话）只随完整安装提供，单独装插件不会包含它们。
 
 安装完成后提醒用户：**重启 dsh web 并硬刷新浏览器**（Ctrl+Shift+R）。
 

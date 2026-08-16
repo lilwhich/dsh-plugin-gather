@@ -60,4 +60,4 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host ''
 Write-Host '安装完成 ✅ 请重启 dsh web（或硬刷新浏览器）使插件生效。'
-Write-Host '功能：左侧栏文件树/会话 · 右侧边栏 · @引用文件 · 余额/花费/峰谷倒计时 · Checkpoint 快照回滚'
+Write-Host '功能：左侧栏文件树/会话 · 右侧边栏 · @引用文件 · 余额/花费/峰谷倒计时 · Checkpoint 快照'
