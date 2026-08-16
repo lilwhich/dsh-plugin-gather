@@ -4,10 +4,38 @@
 
 我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
 
+## 📸 截图预览
+
+本包内置 8 大功能，一张图一段话看完：
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/02-status-bar.png" alt="账户状态栏" /><br/><b>📊 账户状态栏</b><br/>余额 · 消耗 · 峰谷 · 上下文</td>
+    <td align="center" width="33%"><img src="docs/screenshots/07-bottom-buttons.png" alt="底部三按钮" /><br/><b>下方三按钮</b><br/>删除确认 / 迁徙 / 全局</td>
+    <td align="center" width="33%"><img src="docs/screenshots/05-sidebar-layout.png" alt="VSCode 左侧栏" /><br/><b>📁 左侧栏</b><br/>文件 · 会话 · 大纲</td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/09-outline.png" alt="对话大纲" /><br/><b>🗂 对话大纲</b><br/>用户消息导航 + 搜索</td>
+    <td align="center" width="33%"><img src="docs/screenshots/04-diff-review.png" alt="Diff Review" /><br/><b>👁️ Diff Review</b><br/>实时行级 diff</td>
+    <td align="center" width="33%"><img src="docs/screenshots/06-global-settings.png" alt="全局设定" /><br/><b>⚙️ 全局设定</b><br/>编辑 ~/.dsh/AGENTS.md</td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/03-delete-confirm.png" alt="删除确认弹框" /><br/><b>🛡️ 删除确认</b><br/>拦截 rm/del 弹框</td>
+    <td align="center" width="33%"><img src="docs/screenshots/01-handoff-confirm.png" alt="对话迁徙确认" /><br/><b>🚚 对话迁徙</b><br/>本地预处理省 99% token</td>
+    <td align="center" width="33%"><img src="docs/screenshots/08-session-menu.png" alt="会话 ⋯ 菜单" /><br/><b>💬 会话 ⋯ 菜单</b><br/>置顶 / 复制路径 / 删除</td>
+  </tr>
+</table>
+
 ## 自带功能总览（本包内置）
 
 - **VSCode 风格左侧栏**：左侧边栏分为「📁 文件 / 💬 会话 / 🗂 大纲」三栏（VSCode 活动栏风格）——文件栏点开显示**当前工作区文件树**（懒加载目录，点击文件在右侧边栏打开），会话栏保持原样（会话列表 + 运行/完成状态点，点击切换），大纲栏见下方「对话大纲」
+
+  ![左侧栏文件树与右侧边栏多标签页](docs/screenshots/05-sidebar-layout.png)
+
+  ![会话 ⋯ 菜单：置顶 / 复制路径 / 删除](docs/screenshots/08-session-menu.png)
 - **对话大纲（Conversation Outline）**：左侧边栏「🗂 大纲」tab——自动扫描当前会话聊天的**用户消息**生成导航目录（每条用户消息 = 一个节点，标题取消息首句并截断）：**点击节点立即滚动定位**到对应消息并临时高亮（只定位、不改变聊天状态）；**滚动聊天时自动高亮当前阅读段**（绿色圆点 + 背景）；顶部 **🔍 搜索** 可实时过滤节点；长对话列表可滚动，带**始终可见的自定义滚动条**（DSH 默认隐藏原生滚动条）
+
+  ![对话大纲](docs/screenshots/09-outline.png)
 - **Checkpoint 快照系统**：
 
 **Agent 每次开始运行（准备修改项目文件前）自动创建 Checkpoint**。右侧边栏新增 **CHECKPOINTS** 标签页，可查看快照列表、Files Changed、Diff，并支持**两次确认后恢复**。
@@ -16,15 +44,26 @@
 - **非 Git 项目**：**不初始化 Git**，采用兼容方案——把项目文件复制快照到 `~/.dsh/checkpoints/`（自动排除 node_modules/.git/dist/build 等目录），快照间 diff 复用 `git diff --no-index`，恢复会覆盖快照中的文件（不删除快照后新增的文件，属已知限制）
 - 快照数据存于 `~/.dsh/checkpoints/<工作区哈希>/index.json`，恢复操作在 UI 中必须经过**二次确认**
 - **全局设定（Global Settings）**：编辑 DSH 的**用户级指令文件 `~/.dsh/AGENTS.md`**（模仿 Claude Code 的 CLAUDE.md）——写在这里的规则**对所有会话生效**（DSH 每次会话启动时把该文件作为工作区指令基线载入；项目目录下的 `AGENTS.md` / `CLAUDE.md` 优先级更高）。**左侧边栏底部「⚙️ 全局」按钮**（齿轮图标 + 汉字，悬停提示「全局设定（对所有会话生效）」，首次使用显示引导气泡并带提示圆点）展开二级菜单（含「全局设定」入口）与右侧边栏「全局设定」标签页均可编辑：Markdown 编辑器 + 保存（原子写入）/ 恢复模板 / 复制路径，未保存内容自动暂存本地，切换标签不丢失；**保存后自动返回上一页**，新会话立即生效、当前会话下一轮自动刷新。
+
+  ![全局设定：编辑 ~/.dsh/AGENTS.md](docs/screenshots/06-global-settings.png)
 - **Diff Review（实时改动审查）**：右侧边栏新增「**Diff Review**」标签页——Agent 每次 `read`/`write`/`edit`/`str_replace_editor` 修改文件时，宿主在**工具执行前捕获文件原状态**（`tools/pre-execute`）、执行成功后计算**行级 diff**（LCS 算法，绿=新增 / 红=删除 / 蓝=hunk 头），**实时**显示到面板：**保留最新 6 条，前 2 条展开、更早的自动折叠为摘要行**（点击标题可展开/收起，不堆叠影响查看），最新改动**黄色高亮闪烁**；**客户端常驻轮询**（不依赖标签页是否打开），**每个工作区第一次出现改动时自动打开面板**，标签栏带实时 **+N 未读徽标**；顶部「实时跟随」开关可关；按会话工作区隔离，每 1.5s 轮询 `/my-better-dsh/api/diff-review`。
+  ![Diff Review 实时行级 diff](docs/screenshots/04-diff-review.png)
 - **Security Mode（安全模式，默认 Full Access Except Delete）**：默认保持**完全访问**——所有读取/创建/修改/重命名/移动文件、终端命令、npm/pip 安装卸载、Git、网络请求、Tool 调用、Checkpoint、配置修改、安装插件、运行脚本**全部自动放行，不弹确认**（与 DSH 原生 danger-full-access 行为一致）；仅在 Agent 执行**删除操作**（删除文件 / 批量删除 / 删除目录）时，在 DSH 官方统一工具入口 `tools/pre-execute` **挂起该工具**并弹出确认框（显示路径列表、批量数量、目录内容统计、删除前已有 Checkpoint 提示），用户点「允许删除 / 取消」后放行或拒绝（拒绝时工具以 `用户拒绝了该删除操作。` 返回给 Agent，任务不中断）。删除识别基于**工具名 + 参数**与 **shell 删除命令解析**（`rm`/`rmdir`/`unlink`、`del`/`erase`/`rd`、`Remove-Item` 及其别名、`.NET [IO.File]::Delete` 等，区分 bash / PowerShell / CMD），**不会**因命令中仅出现 rm/delete/remove 字样就误判（echo、注释、grep、git rm、npm rm 等均不受影响）。模式可经 `GET/POST /my-better-dsh/api/security/mode` 查看/切换（`full-access-except-delete` / `full-access`），开关状态持久化（重启保留）。**独立开关**：左侧栏底部与「🚚 对话迁徙」「⚙️ 全局」并列的「删除时确认」开关（switch 滑块，点击即切、即时生效、全局实时同步，三按钮均分等大）；输入框下方状态栏的「🟢 删除时确认」标签为纯显示。
+
+  ![删除确认弹框](docs/screenshots/03-delete-confirm.png)
 - **对话迁徙（Conversation Handoff）**：左侧栏底部「**🚚 对话迁徙**」按钮（与「删除时确认」开关、「⚙️ 全局」按钮并列均分等大）——点击后先弹**二级确认框**（说明：分析当前对话生成 Context Handoff、创建新对话、原对话保持不变），确认后才开始；**复用 DSH 自身 Agent/LLM Runtime**（零新增外部 API / Provider / 模型 / Key）在后台创建一个**内部临时分析会话**（`handoff-<uuid>`，禁止一切工具调用）分析当前 Conversation，生成 **Context Handoff**（当前目标 / 已完成 / 当前进度 / 用户要求 / 用户限制 / 重要决定 / 已修改文件 / 当前问题 / 已失败方案 / Task Board / 下一步 / 最近重要上下文），然后**创建全新的 Conversation**，把 Handoff 作为初始上下文注入（不携带原完整历史，压缩上下文继续工作）。**迁徙上下文预处理**：先把完整对话交给 **host 本地轻量过滤**（不把 800K 原样喂给分析 agent）——保留用户消息/要求/限制、Agent 最终结论、重要 Tool Call/Result、文件路径、错误信息、技术决策、最近若干轮完整；过滤重复工具输出、npm/pip 安装日志、编译日志、被后续消息覆盖的中间信息（错误信息与用户限制**绝不**误删）；已有 DSH compaction 生成的摘要节点直接复用，不重复分析。UI 显示预处理后的**实际分析量估算**（「迁徙完成 · 约 XX tokens」）。过程提示：正在预处理当前对话…… → 正在分析当前对话…… → 正在提取任务状态…… → 正在生成迁徙上下文…… → 迁徙完成；完成后自动打开新对话并在状态栏显示「🚚 已从上一对话迁徙」标记（hover 提示「此对话由 Context Handoff 创建」）。**原 Conversation / Session 完全不变**；临时分析会话结束后自动清理，不显示在会话列表；失败时原对话不受影响，可重试。
+
+  ![对话迁徙二级确认框](docs/screenshots/01-handoff-confirm.png)
 
 ## 自带的账户状态功能（本包内置）
 
 - **输入框下方状态栏（两行式）**（composer dock）：**第一行**为官方运行统计——轮数/步数、LLM 时间、工具调用时间、首 token 平均、TPS、缓存命中、输入/输出 token（完整显示不截断）；**第二行**为本包账户状态——**API 余额**（¥，来自 DeepSeek 真实余额接口 `api.deepseek.com/user/balance`）、**本次已消耗**（余额差值，真实花费）、**当前时段**（高峰/空闲）与**距下次时段切换的倒计时**（官方峰谷定价：高峰=北京时间 9:00-12:00、14:00-18:00，空闲=其余时间，空闲半价；2026-08-17 起生效）、**当前对话剩余上下文窗口**（如 `剩 384K/1M`，绿/黄/红随剩余比例变色）
+
+  ![输入框下方状态栏：运行统计 + 余额 + 峰谷 + 上下文 + 删除时确认](docs/screenshots/02-status-bar.png)
 - **输入框内当前对话剩余上下文窗口指示**：输入框**未输入文字且光标聚焦**时，以及**智能体发送消息（回复中）**时，在输入框内浮动显示**当前对话剩余上下文窗口**（如 `剩 384K/1M`，绿/黄/红随剩余比例变色；来源为 DSH token-meter 的真实上下文投影）
 - 余额/花费**每 60 秒**通过真实 API 刷新一次（host 侧用 `DEEPSEEK_API_KEY` 凭据调用，密钥不出主机）
+
+  ![左侧栏底部三按钮：删除时确认 / 对话迁徙 / 全局](docs/screenshots/07-bottom-buttons.png)
 
 ## 包含的插件
 
