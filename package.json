@@ -1,11 +1,16 @@
 {
   "name": "my_better-dsh",
-  "version": "0.2.0",
-  "description": "我的 DSH Web 插件集合包：dsh-at-file + dsh-better-sidebar + dsh-web-ui 全家桶（梁神模式/任务看板/Git图谱/右侧面板/SSH/图像理解等）一键安装。",
+  "version": "0.3.0",
+  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选（右侧面板/任务看板/实时吞吐/设置页/皮肤中心）。",
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@linxin666/dsh-web-ui-all": "^0.1.16",
+    "@linxin666/dsh-client-ui-aionui-panel": "^0.1.16",
+    "@linxin666/dsh-client-ui-task-board": "^0.1.16",
+    "@linxin666/dsh-live-stats": "^0.1.16",
+    "@linxin666/dsh-client-ui-web-ui-settings": "^0.1.16",
+    "@linxin666/dsh-skins": "^0.1.16",
+    "@linxin666/dsh-client-ui-skin-center": "^0.1.16",
     "dsh-at-file": "https://codeload.github.com/omdsh-dev/dsh-at-file/tar.gz/refs/tags/v0.6.0",
     "dsh-better-sidebar": "^0.12.2"
   },
