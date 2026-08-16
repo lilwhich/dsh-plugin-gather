@@ -18,7 +18,7 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 
 装完后**重启 `dsh web`**（或按各插件要求硬刷新浏览器），在「新建会话」或设置页确认插件生效。
 
-> 说明：`dsh-at-file` 未发布到 npm，依赖以 codeload GitHub tarball 形式声明（等效于官方 README 的 archive URL，且在该网络环境可访问）。
+> 说明：`dsh-at-file` 未发布到 npm，且 pnpm 11 默认禁止「URL 规格的传递依赖」，因此本仓库将其源码内嵌在 `vendor/dsh-at-file/`（v0.6.0 快照，MIT 许可，随包保留 LICENSE），以 `file:` 本地依赖引入——仓库自包含，任何网络环境下都能安装。
 
 ## 原理
 
