@@ -1,7 +1,7 @@
 {
   "name": "my_better-dsh",
-  "version": "0.4.0",
-  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏（余额/花费/峰谷倒计时）与上下文剩余百分比。",
+  "version": "0.5.0",
+  "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏 + Checkpoint/Rollback 快照系统。",
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
@@ -29,7 +29,8 @@
       "inject": [
         "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-client-ui-slots",
-        "@deepseek-ai/dsh-client-ui-conversation"
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "dsh-better-sidebar"
       ]
     }
   },

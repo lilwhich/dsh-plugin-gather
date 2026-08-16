@@ -1,6 +1,14 @@
 # my_better-dsh
 
-我的 DeepSeek Harness Web 插件集合包 + 账户状态功能：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
+我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint/Rollback 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
+
+## 自带的 Checkpoint / Rollback 快照系统（本包内置，Phase 1）
+
+**Agent 每次开始运行（准备修改项目文件前）自动创建 Checkpoint**。右侧边栏新增 **CHECKPOINTS** 标签页，可查看快照列表、Files Changed、Diff，并支持**两次确认后恢复**。
+
+- **Git 项目**：直接复用 Git（`git add -A` + `commit` 作为快照；diff 用 `git show`；恢复用 `git reset --hard <commit>`）——不自研、不重复实现。工作区无变化时自动跳过（不产生空快照）
+- **非 Git 项目**：**不初始化 Git**，采用兼容方案——把项目文件复制快照到 `~/.dsh/checkpoints/`（自动排除 node_modules/.git/dist/build 等目录），快照间 diff 复用 `git diff --no-index`，恢复会覆盖快照中的文件（不删除快照后新增的文件，属已知限制）
+- 快照数据存于 `~/.dsh/checkpoints/<工作区哈希>/index.json`，恢复操作在 UI 中必须经过**二次确认**
 
 ## 自带的账户状态功能（本包内置）
 
