@@ -72,7 +72,7 @@ irm https://tinyurl.com/2927jusc | iex
 **没有 PowerShell？或者更习惯直接在 DSH 里装？** —— 把下面这一整行**发给你的 DSH（在对话里粘贴即可，agent 会帮你执行）**：
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.6 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
+dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
 ```
 
 ### 🟡 第 2 步：重启 `dsh web`
