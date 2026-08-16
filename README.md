@@ -73,7 +73,7 @@ irm https://tinyurl.com/2927jusc | iex
 **没有 PowerShell？或者更习惯直接在 DSH 里装？** —— 把下面这一整行**发给你的 DSH（在对话里粘贴即可，agent 会帮你执行）**：
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 ### 🟡 第 2 步：重启 `dsh web`
@@ -84,9 +84,9 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 
 重启后你应该能看到：
 
-- 左侧边栏出现 **「📁 文件 | 💬 会话」** 切换（文件栏是工作区文件树，会话栏是会话列表）
+- 左侧边栏出现 **「📁 文件 | 💬 会话 | 🗂 大纲」** 切换（文件栏是工作区文件树，会话栏是会话列表，大纲栏是对话大纲）
 - 右侧边栏出现 **CHECKPOINTS / Diff Review** 等标签
-- 输入框下方出现 **「余额 ¥… · 高峰/空闲 · 距切换 …」** 状态栏
+- 输入框下方出现**两行状态栏**（第一行运行统计：轮数/步数/LLM/工具/首 token/TPS/缓存命中/输入输出；第二行「余额 ¥… · 高峰/空闲 · 距切换 … · 上下文」）
 - 输入框输入 `@` 可引用工作区文件
 
 ### ❓ 常见问题
