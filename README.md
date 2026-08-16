@@ -2,7 +2,10 @@
 
 我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint/Rollback 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
 
-## 自带的 Checkpoint / Rollback 快照系统（本包内置，Phase 1）
+## 自带功能总览（本包内置）
+
+- **VSCode 三栏式左侧栏**：左侧边栏分为「📁 文件 / 💬 会话」两栏（VSCode 活动栏风格）——文件栏点开显示**当前工作区文件树**（懒加载目录，点击文件在右侧边栏打开），会话栏保持原样（会话列表 + 运行/完成状态点，点击切换）
+- **Checkpoint / Rollback 快照系统（Phase 1）**：
 
 **Agent 每次开始运行（准备修改项目文件前）自动创建 Checkpoint**。右侧边栏新增 **CHECKPOINTS** 标签页，可查看快照列表、Files Changed、Diff，并支持**两次确认后恢复**。
 
