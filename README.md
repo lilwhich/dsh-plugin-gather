@@ -49,27 +49,30 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 | dsh-web-ui 全家桶精选（右侧面板/看板/皮肤等） | https://github.com/zhu1090093659/dsh-web-ui |
 | dsh-genui（UI 生成，npm: `@omdsh-dev/dsh-genui`，未收录，可选自行安装） | https://github.com/omdsh-dev/dsh-genui |
 
-## 安装
+## 安装（零配置，一个链接）
 
-**第 0 步（仅手动安装需要）**：在 profile 的 `pnpm-workspace.yaml` 里加一行（一键脚本会自动处理）：
+**方式一（推荐 · 一条命令，无需任何配置）** —— Windows PowerShell：
 
-```yaml
-blockExoticSubdeps: false
+```powershell
+irm https://tinyurl.com/2927jusc | iex
 ```
 
-然后：
+（等价完整地址：`irm https://raw.githubusercontent.com/lilwhich/my_better-dsh/main/scripts/install.ps1 | iex`）
+
+**方式二（DSH 原生 · 一个链接）** —— 直接给别人的 DSH 执行：
 
 ```sh
-# 从本仓库安装（GitHub tarball）
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/heads/main
+dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.6 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
 ```
 
-装完后**重启 `dsh web`**（或按各插件要求硬刷新浏览器），在「新建会话」或设置页确认插件生效。
+> 三种 pnpm 11 开关（exotic 依赖 / 构建脚本 / 发布年龄）全部走命令行 `--config.*` 参数，**不修改任何 profile 配置文件**，任何人复制即装。
+
+装完后**重启 `dsh web`**（或硬刷新浏览器）生效。
 
 **更新**：用**带版本号的 tag URL**（避免 pnpm 对同一 URL 的 tarball 校验和冲突）：
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.5.3
+dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/<新版本号> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
 ```
 
 > 说明：`dsh-at-file` 未发布到 npm，依赖以 codeload GitHub tarball 形式声明（等效于官方 README 的 archive URL）。
