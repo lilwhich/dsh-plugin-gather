@@ -95,6 +95,7 @@ dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.
 |---|---|
 | 提示 `dsh` 不是命令 | 先安装 DSH（`npm i -g @deepseek-ai/dsh` 或官方方式），再重跑第 1 步 |
 | 提示找不到 profile | 先运行过一次 `dsh web` 再装 |
+| 安装报错/网络超时（如 `UND_ERR_DESTROYED`、连接失败） | 网络抖动，**直接重跑一遍安装命令**即可（`dsh plugin add` 幂等，重复执行安全） |
 | 装完没看到新功能 | 确认第 2 步的**重启 + 硬刷新**都做了；还没好就在浏览器 Console 看报错 |
 | 想更新 | 见下方「更新」 |
 
