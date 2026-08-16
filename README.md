@@ -2,7 +2,7 @@
 
 > **中文 · [English](./README.en.md)**
 
-我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。
+我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。**自研 UI 全界面中英双语，跟随系统语言自动切换**（系统语言为中文显示中文，其它语言显示 English，切换系统语言实时生效）。
 
 ## 💡 为什么选 my_better-dsh？
 
