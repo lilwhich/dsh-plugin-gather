@@ -72,7 +72,7 @@ irm https://tinyurl.com/2927jusc | iex
 **没有 PowerShell？或者更习惯直接在 DSH 里装？** —— 把下面这一整行**发给你的 DSH（在对话里粘贴即可，agent 会帮你执行）**：
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
+dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 ### 🟡 第 2 步：重启 `dsh web`
@@ -102,7 +102,7 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 用**带版本号的 tag URL**（避免 pnpm 对同一 URL 的 tarball 校验和冲突）：
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/<新版本号> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
+dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/<新版本号> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 > 安装原理：三个 pnpm 11 开关（exotic 依赖 / 构建脚本 / 发布年龄）全部通过命令行 `--config.*` 参数传递，**不修改任何 profile 配置文件**；`dsh-at-file` 未发布 npm，以 codeload tarball 声明（等效官方 archive URL）。

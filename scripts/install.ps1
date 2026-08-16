@@ -6,7 +6,7 @@
 # 用法（推荐，无需任何前置配置）：
 #   irm https://tinyurl.com/2927jusc | iex
 # 或直接用等价的 dsh 命令（"一个链接"方式）：
-#   dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0
+#   dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/v0.8.9 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 # 从本地目录安装（注意：-File 直读请用 PowerShell 7；Windows PowerShell 5.1 会把无 BOM 的 UTF-8 中文当 GBK 解析）：
 #   pwsh -ExecutionPolicy Bypass -File scripts/install.ps1 -Source file:C:\path\to\my_better-dsh
 #
@@ -27,9 +27,15 @@ $PROFILE_DIR = Join-Path $DSH_HOME "profiles\$Profile"
 if (-not (Test-Path $PROFILE_DIR)) { Write-Error "找不到 profile 目录：$PROFILE_DIR（请先运行过一次 dsh web）" }
 
 # pnpm 11 开关全部走命令行参数，不写入任何配置文件：
-#   block-exotic-subdeps=false  放行 URL 规格的传递依赖（dsh-at-file 未发布 npm）
-#   strict-dep-builds=false     被忽略的原生模块构建脚本只告警、不失败（node-pty 自带预编译）
-#   minimum-release-age=0       放行发布不足 24h 的新包
+#   block-exotic-subdeps=false   放行 URL 规格的传递依赖（dsh-at-file 未发布 npm）
+#   strict-dep-builds=false      被忽略的原生模块构建脚本只告警、不失败（node-pty 自带预编译）
+#   minimum-release-age=0        放行发布不足 24h 的新包
+#   auto-install-peers=false     不自动安装 peer 依赖。dsh-better-sidebar 的 @deepseek-ai peer
+#                                声明为 ^0.1.0-rc.6，但上游只发布了 rc 版本且无稳定版；
+#                                pnpm 11 的 peer 自动安装会把它按稳定范围(>=0.1.0 <0.2.0)匹配而
+#                                直接失败（ERR_PNPM_NO_MATCHING_VERSION）。关掉后与线上 profile
+#                                行为一致：peer 由 base/web-app bundle 已带的版本满足，缺的
+#                                (如 dsh-settings) 运行时并不需要，实测可正常启动。
 # 必须调用 dsh.cmd（而非 PowerShell 里的 dsh.ps1）：
 # PowerShell 参数绑定会把 --config.* 当作命名参数解析而报错；
 # .cmd 垫片把参数原样透传给 node，行为与命令行手敲完全一致。
@@ -40,6 +46,7 @@ $FLAGS = @(
   '--config.block-exotic-subdeps=false'
   '--config.strict-dep-builds=false'
   '--config.minimum-release-age=0'
+  '--config.auto-install-peers=false'
 )
 
 if ($DryRun) {
