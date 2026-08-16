@@ -1,6 +1,6 @@
 {
   "name": "my_better-dsh",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏 + Checkpoint/Rollback + VSCode 式左侧栏（文件树/会话切换）。",
   "license": "MIT",
   "type": "module",
@@ -30,6 +30,7 @@
         "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-client-ui-slots",
         "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-sidebar",
         "dsh-better-sidebar"
       ]
     }
