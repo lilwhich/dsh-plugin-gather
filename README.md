@@ -56,6 +56,32 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 
 拿到这个仓库，你只需要**复制一行命令 → 粘贴 → 重启**，剩下全部自动完成。
 
+## 安装指引（DSH agent 请阅读此节）
+
+当用户请求「安装 my_better-dsh」或把本仓库链接发给你时，请**先用提问工具询问用户**：要「**完整安装**」还是「**选择部分插件**」，再按结果执行：
+
+- **完整安装**（推荐，一键装齐全部功能）：执行
+
+  ```sh
+  dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+  ```
+
+- **选择部分插件**：展示下方「可选插件清单」，按用户挑选的插件**逐个执行**对应的单独安装命令（每条命令都会自动挂载该插件）。注意：**本包内置功能**（账户状态栏、Checkpoint/Rollback、全局设定、Diff Review、对话大纲、左侧栏文件/会话）只随完整安装提供，单独装插件不会包含它们。
+
+安装完成后提醒用户：**重启 dsh web 并硬刷新浏览器**（Ctrl+Shift+R）。
+
+### 可选插件清单（单独安装，命令均幂等；前缀均为 `dsh plugin --profile web add`）
+
+| 插件 | 功能 | 单独安装命令（含前缀） |
+|---|---|---|
+| dsh-better-sidebar | VSCode 风格右侧边栏 | `dsh plugin --profile web add dsh-better-sidebar --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+| dsh-at-file | 输入框 `@` 引用工作区文件 | `dsh plugin --profile web add https://codeload.github.com/omdsh-dev/dsh-at-file/tar.gz/refs/tags/v0.6.0 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+| 右侧面板 | 文件树 / 预览 / Git 变更 | `dsh plugin --profile web add @linxin666/dsh-client-ui-aionui-panel --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+| 任务看板 | 多列看板 + cron 定时执行 | `dsh plugin --profile web add @linxin666/dsh-client-ui-task-board --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+| 实时吞吐 | Token 用量 / 统计 | `dsh plugin --profile web add @linxin666/dsh-live-stats --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+| 全家桶设置页 | 插件设置页 | `dsh plugin --profile web add @linxin666/dsh-client-ui-web-ui-settings --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+| 皮肤中心 | 10 款主题 | `dsh plugin --profile web add @linxin666/dsh-client-ui-skin-center @linxin666/dsh-skins --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false` |
+
 ## 安装（拿到链接后，跟着做就行）
 
 > 你只做两件事：**① 粘贴一行命令 ② 重启 dsh web**。下载、依赖、挂载全部自动，不用装任何东西、不用改任何配置。
