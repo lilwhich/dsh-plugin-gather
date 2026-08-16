@@ -1,6 +1,6 @@
 {
   "name": "my_better-dsh",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "小白友好的 DSH Web 一键配置：dsh-at-file + dsh-better-sidebar + dsh-web-ui 精选 + 账户状态栏 + Checkpoint/Rollback + VSCode 式左侧栏（文件树/会话，含 ⋯ 菜单：置顶/删除/复制路径）+ 全局设定（~/.dsh/AGENTS.md 编辑器，CLAUDE.md 风格）。",
   "license": "MIT",
   "type": "module",
