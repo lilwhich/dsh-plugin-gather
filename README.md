@@ -132,7 +132,7 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 在 **Windows PowerShell** 里粘贴并回车：
 
 ```powershell
-irm https://tinyurl.com/22ve2mv5 | iex
+irm https://tinyurl.com/28vgsuk6 | iex
 ```
 
 > 这条命令会自动完成：下载安装脚本 → 从我的仓库拉取整套插件 → 自动处理 pnpm 依赖/原生模块构建/发布校验 → 写进你的 `web` profile 并挂载。全程无需干预。

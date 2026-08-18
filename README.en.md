@@ -94,7 +94,7 @@ After install, remind the user: **restart dsh web and hard-refresh the browser**
 Paste into **Windows PowerShell** and press Enter:
 
 ```powershell
-irm https://tinyurl.com/22ve2mv5 | iex
+irm https://tinyurl.com/28vgsuk6 | iex
 ```
 
 > This downloads the installer → pulls the whole plugin set from this repo → handles pnpm dependencies / native builds / release checks → writes into your `web` profile and mounts everything. No interaction needed.
