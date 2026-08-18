@@ -1,12 +1,12 @@
-# my_better-dsh
+# dsh-plugin-gather
 
 > **中文 · [English](./README.en.md)**
 
 我的 DeepSeek Harness Web 插件集合包 + 账户状态 + Checkpoint 快照系统：把已安装的插件封装成一个 bundle，一条命令装齐、自动挂载。**自研 UI 全界面中英双语，跟随系统语言自动切换**（系统语言为中文显示中文，其它语言显示 English，切换系统语言实时生效）。
 
-## 💡 为什么选 my_better-dsh？
+## 💡 为什么选 dsh-plugin-gather？
 
-| 能力 | 原生 dsh web | **my_better-dsh（本包）** |
+| 能力 | 原生 dsh web | **dsh-plugin-gather（本包）** |
 |------|:------------:|:-------------------------:|
 | **🆕 本包独有（7 大功能）** | | |
 | VSCode 左侧栏（文件 / 会话 / 大纲） | 无 | ✅ 内置 |
@@ -24,7 +24,7 @@
 | 皮肤中心（10 款主题） | 无 | ✅ 含 |
 | `@` 引用文件（dsh-at-file） | 无 | ✅ 含 |
 
-> 一句话：**装上 my_better-dsh = 原生 DSH + 13 项增强（7 大本包独有功能 + 6 项精选插件）**，一条命令装齐、自动挂载。
+> 一句话：**装上 dsh-plugin-gather = 原生 DSH + 13 项增强（7 大本包独有功能 + 6 项精选插件）**，一条命令装齐、自动挂载。
 
 ## 自带功能总览（本包内置）
 
@@ -91,7 +91,7 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 | dsh-web-ui 全家桶精选（右侧面板/看板/皮肤等） | https://github.com/zhu1090093659/dsh-web-ui |
 | dsh-genui（UI 生成，npm: `@omdsh-dev/dsh-genui`，未收录，可选自行安装） | https://github.com/omdsh-dev/dsh-genui |
 
-# my_better-dsh
+# dsh-plugin-gather
 
 给你的 DeepSeek Harness（DSH）一键装好一整套好用插件：**VSCode 式左侧栏（文件树/会话/对话大纲）· 右侧边栏 · @ 引用文件 · 任务看板 · 皮肤中心 · API 余额/花费/峰谷倒计时 · Checkpoint 快照 · 全局设定 · Diff Review**。
 
@@ -99,12 +99,12 @@ dsh-web-ui **精选 5 项**（逐个依赖，非全家桶聚合包）：
 
 ## 安装指引（DSH agent 请阅读此节）
 
-当用户请求「安装 my_better-dsh」或把本仓库链接发给你时，请**先用提问工具询问用户**：要「**完整安装**」还是「**选择部分插件**」，再按结果执行：
+当用户请求「安装 dsh-plugin-gather」或把本仓库链接发给你时，请**先用提问工具询问用户**：要「**完整安装**」还是「**选择部分插件**」，再按结果执行：
 
 - **完整安装**（推荐，一键装齐全部功能）：执行
 
   ```sh
-  dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+  dsh plugin --profile web add https://github.com/lilwhich/dsh-plugin-gather --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
   ```
 
 - **选择部分插件**：展示下方「可选插件清单」，按用户挑选的插件**逐个执行**对应的单独安装命令（每条命令都会自动挂载该插件）。注意：**本包内置功能**（账户状态栏、Checkpoint、全局设定、Diff Review、对话大纲、左侧栏文件/会话）只随完整安装提供，单独装插件不会包含它们。
@@ -140,7 +140,7 @@ irm https://tinyurl.com/2927jusc | iex
 **没有 PowerShell？或者更习惯直接在 DSH 里装？** —— 把下面这一整行**发给你的 DSH（在对话里粘贴即可，agent 会帮你执行）**：
 
 ```sh
-dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+dsh plugin --profile web add https://github.com/lilwhich/dsh-plugin-gather --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 ### 🟡 第 2 步：重启 `dsh web`
@@ -171,7 +171,7 @@ dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.
 用**带版本号的 tag URL**（避免 pnpm 对同一 URL 的 tarball 校验和冲突）：
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/<新版本号> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+dsh plugin --profile web add https://codeload.github.com/lilwhich/dsh-plugin-gather/tar.gz/refs/tags/<新版本号> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 > 安装原理：三个 pnpm 11 开关（exotic 依赖 / 构建脚本 / 发布年龄）全部通过命令行 `--config.*` 参数传递，**不修改任何 profile 配置文件**；`dsh-at-file` 未发布 npm，以 codeload tarball 声明（等效官方 archive URL）。
@@ -190,9 +190,9 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 
 ```sh
 # 从本地目录安装（测试用）
-dsh plugin --profile web add file:/path/to/my_better-dsh
+dsh plugin --profile web add file:/path/to/dsh-plugin-gather
 # 或
-dsh plugin --profile <scratch> add file:/path/to/my_better-dsh
+dsh plugin --profile <scratch> add file:/path/to/dsh-plugin-gather
 ```
 
 ## 更新插件版本

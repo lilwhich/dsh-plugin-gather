@@ -1,6 +1,6 @@
-# AGENTS.md — my_better-dsh 安装与使用指引
+# AGENTS.md — dsh-plugin-gather 安装与使用指引
 
-本仓库是 DeepSeek Harness（DSH）的插件聚合包。当用户请求「安装 my_better-dsh」、
+本仓库是 DeepSeek Harness（DSH）的插件聚合包。当用户请求「安装 dsh-plugin-gather」、
 粘贴本仓库链接、或要求在本环境配置本包时，请遵循以下流程。
 
 ## 安装流程（先提问，再执行）
@@ -9,7 +9,7 @@
 2. **完整安装**（推荐，一键装齐全部功能）：执行
 
    ```sh
-   dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+   dsh plugin --profile web add https://github.com/lilwhich/dsh-plugin-gather --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
    ```
 
 3. **选择部分插件**：按用户挑选，逐个执行下方「可选插件清单」中的单独安装命令（每条命令均幂等、会自动挂载该插件到 profile）。

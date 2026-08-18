@@ -1,4 +1,4 @@
-# my_better-dsh
+# dsh-plugin-gather
 
 > **English · [中文](./README.md)**
 
@@ -61,12 +61,12 @@ All you do is **copy one command → paste → restart**; everything else happen
 
 ## Quick Install (for DSH agents, please read this section)
 
-When the user asks to "install my_better-dsh" or sends you this repo link, **first ask with the question tool**: 「**完整安装** (full install)」 or 「**选择部分插件** (select plugins)」, then act accordingly:
+When the user asks to "install dsh-plugin-gather" or sends you this repo link, **first ask with the question tool**: 「**完整安装** (full install)」 or 「**选择部分插件** (select plugins)」, then act accordingly:
 
 - **Full install** (recommended — one command, everything mounted):
 
   ```sh
-  dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+  dsh plugin --profile web add https://github.com/lilwhich/dsh-plugin-gather --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
   ```
 
 - **Select plugins**: show the "optional plugins" table below and run the matching standalone command for each chosen plugin (every command is idempotent and auto-mounts the plugin). Note: **built-in features** (account status bar, Checkpoint, Global Settings, Diff Review, Conversation Outline, left-sidebar files/sessions) come only with the full install.
@@ -102,7 +102,7 @@ irm https://tinyurl.com/2927jusc | iex
 **No PowerShell? Prefer installing inside DSH?** — send this whole line to your DSH (paste it into the chat; the agent will run it):
 
 ```sh
-dsh plugin --profile web add https://github.com/lilwhich/my_better-dsh --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+dsh plugin --profile web add https://github.com/lilwhich/dsh-plugin-gather --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 ### 🟡 Step 2: Restart `dsh web`
@@ -133,7 +133,7 @@ After restart you should see:
 Use a **versioned tag URL** (avoids pnpm tarball checksum conflicts for the same URL):
 
 ```sh
-dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/tar.gz/refs/tags/<new-version> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
+dsh plugin --profile web add https://codeload.github.com/lilwhich/dsh-plugin-gather/tar.gz/refs/tags/<new-version> --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 ```
 
 > How it works: the three pnpm 11 switches (exotic deps / build scripts / release age) are passed via `--config.*` CLI flags — **no profile config files are modified**; `dsh-at-file` is not on npm, so it's declared as a codeload tarball (equivalent to the official archive URL).
@@ -152,9 +152,9 @@ dsh plugin --profile web add https://codeload.github.com/lilwhich/my_better-dsh/
 
 ```sh
 # Install from a local directory (for testing)
-dsh plugin --profile web add file:/path/to/my_better-dsh
+dsh plugin --profile web add file:/path/to/dsh-plugin-gather
 # or
-dsh plugin --profile <scratch> add file:/path/to/my_better-dsh
+dsh plugin --profile <scratch> add file:/path/to/dsh-plugin-gather
 ```
 
 ## Updating Plugin Versions
