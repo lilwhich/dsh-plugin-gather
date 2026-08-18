@@ -4,7 +4,7 @@
 # --config.* 参数传递，任何人复制一行即可完成安装。
 #
 # 用法（推荐，无需任何前置配置）：
-#   irm https://tinyurl.com/2927jusc | iex
+#   irm https://tinyurl.com/22ve2mv5 | iex
 # 或直接用等价的 dsh 命令（"一个链接"方式）：
 #   dsh plugin --profile web add https://codeload.github.com/lilwhich/dsh-plugin-gather/tar.gz/refs/tags/v0.9.6 --config.block-exotic-subdeps=false --config.strict-dep-builds=false --config.minimum-release-age=0 --config.auto-install-peers=false
 # 从本地目录安装（注意：-File 直读请用 PowerShell 7；Windows PowerShell 5.1 会把无 BOM 的 UTF-8 中文当 GBK 解析）：
