@@ -1,0 +1,37 @@
+name: AI Issue Triage
+
+# 新 issue 一打开就自动分诊：摘要 → 分类打标签 → 生成回复草稿
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: '要分诊的 issue 编号'
+        required: true
+        type: number
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run AI triage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 可选：不配也能跑（自动降级为关键词分类）
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL || 'https://api.deepseek.com' }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL || 'deepseek-chat' }}
+        run: python scripts/triage.py
